@@ -57,7 +57,12 @@
 
 - (CGSize)collectionView:(UICollectionView *)cv layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(200, 200);
+    return (indexPath.section == 0) ? CGSizeMake(200, 80) : CGSizeMake(200, 200);
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout shouldFloatSectionAtIndex:(NSInteger)section
+{
+    return (section == 0 || section == 3);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
@@ -79,7 +84,11 @@
     
     CollectionCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"CollectionCellId" forIndexPath:indexPath];
     cell.index = [NSString stringWithFormat:@"%ld - %ld",(long)indexPath.section, (long)indexPath.row];
-
+    if (indexPath.section == 0) {
+        cell.backgroundColor = [UIColor orangeColor];
+    } else {
+        cell.backgroundColor = [UIColor whiteColor];
+    }
     return cell;
 }
 @end

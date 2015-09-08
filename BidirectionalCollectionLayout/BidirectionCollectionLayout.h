@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol BidirectionalCollectionLayoutDelegate <UICollectionViewDelegateFlowLayout>
+@optional
+- (BOOL)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout shouldFloatSectionAtIndex:(NSInteger)section;
+
+@end
+
 @interface BidirectionCollectionLayout : UICollectionViewFlowLayout
 
 @end

@@ -12,28 +12,32 @@
 
 @end
 
-
 @implementation BidirectionCollectionLayout
 {
     NSDictionary *_layoutInfo;
     UIEdgeInsets maxInsets;
     CGFloat maxRowsWidth;
     CGFloat maxColumnHeight;
-    __weak id<UICollectionViewDelegateFlowLayout> delegate ;
+    __weak id<BidirectionalCollectionLayoutDelegate> delegate;
 }
 
 - (void)prepareLayout
 {
-    delegate = (id<UICollectionViewDelegateFlowLayout>) self.collectionView.delegate;
+    delegate = (id<BidirectionalCollectionLayoutDelegate>) self.collectionView.delegate;
+    //Calculate max values
+    maxInsets = [self maxInsets];
+    maxRowsWidth = [self maxRowWidth];
+    maxColumnHeight = [self maxColumnHeight];
     
     //Store calculated frames for cells in the dictionary
     NSMutableDictionary *cellLayoutInfo = [NSMutableDictionary dictionary];
     
     //Calculate Frame for a cell, per values from DataSource
     CGFloat originY = 0;
-    NSInteger sectionCount = [self.collectionView numberOfSections];
+    CGFloat floatingSectionOriginY = self.collectionView.contentOffset.y;
+    BOOL sectionIsFloating = NO;
     
-    for (NSInteger section = 0; section < sectionCount; section++) {
+    for (NSInteger section = 0; section < [self.collectionView numberOfSections]; section++) {
         
         UIEdgeInsets itemInsets = UIEdgeInsetsZero;
         if ([delegate respondsToSelector:@selector(collectionView:layout:insetForSectionAtIndex:)]) {
@@ -45,6 +49,9 @@
         NSInteger itemCount = [self.collectionView numberOfItemsInSection:section];
         CGFloat originX = itemInsets.left;
         
+        if ([delegate respondsToSelector:@selector(collectionView:layout:shouldFloatSectionAtIndex:)]) {
+            sectionIsFloating = [delegate collectionView:self.collectionView layout:self shouldFloatSectionAtIndex:section];
+        }
         for (NSInteger item = 0; item < itemCount; item++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
             
@@ -52,7 +59,16 @@
             CGSize itemSize = CGSizeZero;
             if ([delegate respondsToSelector:@selector(collectionView:layout:sizeForItemAtIndexPath:)]) {
                 itemSize = [delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];
-                itemAttributes.frame = CGRectMake(originX, originY, itemSize.width, itemSize.height);
+                
+                float selectedOriginY = originY;
+                if (sectionIsFloating) {
+                    if (floatingSectionOriginY >= originY) {
+                        selectedOriginY = floatingSectionOriginY;
+                    }
+                    itemAttributes.zIndex = 1000;//any value greater than '0'
+                }
+                
+                itemAttributes.frame = CGRectMake(originX, selectedOriginY, itemSize.width, itemSize.height);
             }
             cellLayoutInfo[indexPath] = itemAttributes;
             
@@ -71,15 +87,12 @@
         }
         
         originY += floor(height + interItemSpacingY);
+        if (sectionIsFloating) {
+            floatingSectionOriginY += height;
+        }
     }
     
     _layoutInfo = cellLayoutInfo;
-    
-    //Calculate max values
-    maxInsets = [self maxInsets];
-    maxRowsWidth = [self maxRowWidth];
-    maxColumnHeight = [self maxColumnHeight];
-    
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
@@ -95,6 +108,11 @@
     }];
     
     return allAttributes;
+}
+
+- (BOOL) shouldInvalidateLayoutForBoundsChange:(CGRect)newBound
+{
+    return YES;
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -127,14 +145,11 @@
         //Find total width of this section.
         for (NSInteger item = 0; item < itemCount; item++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
-
-            UICollectionViewLayoutAttributes *attributes = _layoutInfo[indexPath];
-            CGSize itemSize = attributes.size;
-
-//            if ([delegate respondsToSelector:@selector(collectionView:layout:sizeForItemAtIndexPath:)]) {
-//                CGSize itemSize = [delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];
+            
+            if ([delegate respondsToSelector:@selector(collectionView:layout:sizeForItemAtIndexPath:)]) {
+                CGSize itemSize = [delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];
                 maxWidth += itemSize.width ;
-//            }
+            }
         }
         
         CGFloat interItemSpace = 0;
@@ -164,15 +179,10 @@
         CGFloat maxRowHeight = 0;
         for (NSInteger item = 0; item < itemCount; item++) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
-            
-            UICollectionViewLayoutAttributes *attributes = _layoutInfo[indexPath];
-            CGSize itemSize = attributes.size;
-
-            
-//            if ([delegate respondsToSelector:@selector(collectionView:layout:sizeForItemAtIndexPath:)]) {
-//                CGSize itemSize = [delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];
+            if ([delegate respondsToSelector:@selector(collectionView:layout:sizeForItemAtIndexPath:)]) {
+                CGSize itemSize = [delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];
                 maxRowHeight = itemSize.height > maxRowHeight ? itemSize.height : maxRowHeight;
-//            }
+            }
         }
         CGFloat interSectionSpacingY = 0;
         if ([delegate respondsToSelector:@selector(collectionView:layout:minimumLineSpacingForSectionAtIndex:)]) {
@@ -209,16 +219,12 @@
     for (NSInteger section = 0; section < sectionCount; section++) {
         if ([delegate respondsToSelector:@selector(collectionView:layout:insetForSectionAtIndex:)]) {
             UIEdgeInsets itemInsets = [delegate collectionView:self.collectionView layout:self insetForSectionAtIndex:section];
-            maxEdgeInsets.left = itemInsets.left > maxEdgeInsets.left ? itemInsets.left : maxEdgeInsets.left;
-            maxEdgeInsets.right = itemInsets.right > maxEdgeInsets.right ? itemInsets.right : maxEdgeInsets.right;
+            maxEdgeInsets.left = itemInsets.left;
+            maxEdgeInsets.right = itemInsets.right;
         }
     }
     
     return maxEdgeInsets;
 }
-
-
-
-
 
 @end
