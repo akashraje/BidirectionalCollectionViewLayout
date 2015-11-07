@@ -15,6 +15,7 @@
 		5628FFBD1B5AB1EA00D89F45 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5628FFBB1B5AB1EA00D89F45 /* LaunchScreen.xib */; };
 		5628FFC91B5AB1EA00D89F45 /* BidirectionalCollectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5628FFC81B5AB1EA00D89F45 /* BidirectionalCollectionTests.m */; };
 		5628FFD51B5AB29B00D89F45 /* BidirectionCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5628FFD41B5AB29B00D89F45 /* BidirectionCollectionLayout.m */; };
+		56CE83E11BEE082E007BC3BE /* Demo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 56CE83E01BEE082E007BC3BE /* Demo.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		5628FFC81B5AB1EA00D89F45 /* BidirectionalCollectionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BidirectionalCollectionTests.m; sourceTree = "<group>"; };
 		5628FFD31B5AB29B00D89F45 /* BidirectionCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidirectionCollectionLayout.h; sourceTree = "<group>"; };
 		5628FFD41B5AB29B00D89F45 /* BidirectionCollectionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BidirectionCollectionLayout.m; sourceTree = "<group>"; };
+		56CE83E01BEE082E007BC3BE /* Demo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Demo.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				5628FFB61B5AB1EA00D89F45 /* Main.storyboard */,
 				5628FFB91B5AB1EA00D89F45 /* Images.xcassets */,
 				5628FFBB1B5AB1EA00D89F45 /* LaunchScreen.xib */,
+				56CE83E01BEE082E007BC3BE /* Demo.gif */,
 				5628FFAC1B5AB1EA00D89F45 /* Supporting Files */,
 			);
 			path = BidirectionalCollection;
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5628FFB81B5AB1EA00D89F45 /* Main.storyboard in Resources */,
+				56CE83E11BEE082E007BC3BE /* Demo.gif in Resources */,
 				5628FFBD1B5AB1EA00D89F45 /* LaunchScreen.xib in Resources */,
 				5628FFBA1B5AB1EA00D89F45 /* Images.xcassets in Resources */,
 			);
