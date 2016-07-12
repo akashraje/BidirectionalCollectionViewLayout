@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>86056711-C572-4D34-A0C0-7056EAFB6F74</string>
+	<key>IDESourceControlProjectName</key>
+	<string>BidirectionalCollection</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>13E080F07A96198B9F431262607FD27AA7D84BF1</key>
+		<string>https://github.com/akashraje/BidirectionCollectionView.git</string>
+		<key>92B8CBFD77C99B68CD66E5B93D1E6503BBA53123</key>
+		<string>https://github.com/akashraje/BidirectionalCollectionViewLayout.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>BidirectionalCollection.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>13E080F07A96198B9F431262607FD27AA7D84BF1</key>
+		<string>../../../BidirectionCollectionView</string>
+		<key>92B8CBFD77C99B68CD66E5B93D1E6503BBA53123</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/akashraje/BidirectionalCollectionViewLayout.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>92B8CBFD77C99B68CD66E5B93D1E6503BBA53123</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>92B8CBFD77C99B68CD66E5B93D1E6503BBA53123</string>
+			<key>IDESourceControlWCCName</key>
+			<string>BidirectionalCollectionViewLayout</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>13E080F07A96198B9F431262607FD27AA7D84BF1</string>
+			<key>IDESourceControlWCCName</key>
+			<string>BidirectionCollectionView</string>
+		</dict>
+	</array>
+</dict>
+</plist>
