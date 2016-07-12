@@ -207,7 +207,7 @@
 
 - (UIEdgeInsets)maxInsets
 {
-    UIEdgeInsets maxEdgeInsets;
+    UIEdgeInsets maxEdgeInsets = UIEdgeInsetsZero;
     NSInteger sectionCount = [self.collectionView numberOfSections];
     if ([delegate respondsToSelector:@selector(collectionView:layout:insetForSectionAtIndex:)]) {
         UIEdgeInsets topRowInsets = [delegate collectionView:self.collectionView layout:self insetForSectionAtIndex:0];
